@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Account Center</title>
+    <link rel="icon" type="image/png" href="../images/kejora-logo.png">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="account-center.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Fira+Mono:wght@400;500;700&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+</head>
+<body>
+    <div class="account-center">
+        <div class="navbar-acc">
+            <a class="navbar-left" href="../index.php">
+                <img src="../images/kejora-putih.png" class="logo"/>
+            </a>
+            <a href="login/index.php" class="button back-btn">
+                <span class="material-symbols-outlined">reply</span>
+                <p>Kembali</p>
+            </a>
+        </div>
+        <div class="main-acc">
+            <div class="box-acc">
+                <div class="acc-1 box-styling">
+                    <img src="{PHOTO PROFILE dari User yang sedang login}" class="pp-acc"/>
+                    <div class="acc-1-1">
+                        <p class="acc-title">Photo Profile</p>
+                        <div class="acc-1-1-2">
+                            <button id="edit-pp" class="button-acc">
+                                <span class="material-symbols-outlined">edit</span>
+                                <p>Ubah Photo Profile</p>
+                            </button>
+                            <button id="delete-pp" class="button-acc">
+                                <span class="material-symbols-outlined">delete</span>
+                                <p>Delete Photo Profile</p>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="acc-2 box-styling">
+                    <button class="edit_biodata" id="edit_biodata">
+                        <span class="material-symbols-outlined">manage_accounts</span>
+                    </button>
+                    <p class="acc-title">Biodata Pengguna</p>
+                    <div class="acc-biodata" id="biodata">
+                        <div class="acc-info">
+                            <div class="info-left">
+                                <p>Username</p>
+                            </div>
+                            <p class="colon">:</p>
+                            <div class="info-right">
+                                <p>value "username"</p>
+                            </div>
+                        </div>
+                        <div class="acc-info">
+                            <div class="info-left">
+                                <p>Nama Lengkap</p>
+                            </div>
+                            <p class="colon">:</p>
+                            <div class="info-right">
+                                <p>value "fullname"</p>
+                            </div>
+                        </div>
+                        <div class="acc-info">
+                            <div class="info-left">
+                                <p>Email</p>
+                            </div>
+                            <p class="colon">:</p>
+                            <div class="info-right">
+                                <p>value "email"</p>
+                            </div>
+                        </div>
+                        <div class="acc-info">
+                            <div class="info-left">
+                                <p>Nomor Telepon</p>
+                            </div>
+                            <p class="colon">:</p>
+                            <div class="info-right">
+                                <p>value "phonenumber"</p>
+                            </div>
+                        </div>
+                        <div class="acc-info">
+                            <div class="info-left">
+                                <p>Password</p>
+                            </div>
+                            <p class="colon">:</p>
+                            <div class="info-right">
+                                <p>value "password"</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="acc-3 box-styling">
+                    <p class="acc-title">API</p>
+                    <div class="acc-biodata" id="biodata_api">
+                        <div class="acc-info api" id="class-groq-api">
+                            <p class="title-api">Groq API</p>
+                            <input type="password" id="groq_api" name="groq_api" class="input-api" placeholder="Berisi Value dari groq_api milik User" required>
+                            <button class="saveapi" id="groq_api_save">
+                                <span class="material-symbols-outlined">save</span>
+                            </button>
+                        </div>
+                        <div class="acc-info api" id="class-google-ai-studio-api">
+                            <p class="title-api">Google AI Studio API</p>
+                            <input type="password" id="google_api" name="google_api" class="input-api" placeholder="Berisi Value dari groq_api milik User" required>
+                            <button class="saveapi" id="google_api_save">
+                                <span class="material-symbols-outlined">save</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="acc-4 box-styling danger-box-styling">
+                    <p class="acc-title danger-title">DANGER ZONE</p>
+                    <div class="danger-zone">
+                        <button class="danger-zone-button" id="change_password">
+                            <span class="material-symbols-outlined">password</span>
+                            <p>Ubah Password</p>
+                        </button>
+                        <button class="danger-zone-button">
+                            <span class="material-symbols-outlined" id="delete_acc">delete</span>
+                            <p>Hapus Akun</p>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
