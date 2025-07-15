@@ -1,0 +1,9 @@
+Berikut adalah kodingan untuk interface dari Chatbot saya beserta kegunaannya
+1. <button class="new-chat"> -> Untuk membuat new chat
+2. <div class="list-chat"> -> Berisi List Chat milik pengguna.
+3. <button class="custom-dropdown-button" id="server-selected"> -> Untuk Memilih Server yang Ada (Groq, Google AI Studio)
+5. <button class="custom-dropdown-button" id="model-selected"> -> Untuk Memilih Model yang Ada 
+
+
+1. Jika berada di Chat Baru, Tunjukkan <div class="chat-opener"> dan hide <div class="input-output">
+2. 

@@ -1,0 +1,60 @@
+:root {
+  /* Golden Ratio */
+  --golden-ratio: 1.618;
+
+  /* Font & Tipografi */
+  --font-base: 1.1rem;
+  --font-weight: 400;
+  --font-weight-bolder: calc(var(--font-weight-normal) * var(--golden-ratio));
+  --font-weight-lighter: calc(var(--font-weight-normal) / var(--golden-ratio));
+
+  --font-serif: "Instrument Serif", serif;
+  --font-sans: "Hedvig Letters Sans", sans-serif;
+
+  --font-button:0.85rem;
+
+  --font-small: calc(var(--font-base) / var(--golden-ratio));
+  --font-small-sans: calc(var(--font-base) / var(--golden-ratio) * 1.2);
+  --font-medium: calc(var(--font-base) * var(--golden-ratio)* 0.75);
+  --font-big: calc(var(--font-base) * var(--golden-ratio));
+  --font-big-sans: calc(var(--font-base) * var(--golden-ratio) * 1.2);
+  --font-hero: calc(var(--font-base) * var(--golden-ratio) * var(--golden-ratio));
+
+  /* 📏 Skala Spasi (Sistem 8-Point) */
+  --space-xxs: 0.25rem; /* ~4px */
+  --space-xs: 0.5rem; /* ~8px */
+  --space-s: 0.75rem; /* ~12px */
+  --space-m: 1rem; /* ~16px */
+  --space-l: 1.5rem; /* ~24px */
+  --space-xl: 2rem; /* ~32px */
+  --space-xxl: 3rem; /* ~48px */
+
+  /* ⭕ Skala Border Radius */
+  --radius-s: 0.25rem; /* ~4px, untuk elemen kecil */
+  --radius-m: 0.5rem; /* ~8px, untuk kartu dan tombol */
+  --radius-l: 1rem; /* ~16px, untuk radius yang lebih besar */
+  --radius-xl: 2rem; 
+  --radius-full: 9999px; /* Untuk membuat bentuk pil atau lingkaran */
+
+  --black: #0b0c06;
+  --black-half: rgba(11, 12, 6, 0.5);
+  --white: #fbfbfb;
+  --gray:#d8d8d8;
+  --gray-darker:#afafaf;
+  --red:#b71c1c;
+  --light-red:#c13d35;
+  --dark-red:#700d0d;
+  --green:#1CB71C;
+  --button-primer:linear-gradient(to right, #0d47a1, #1368ed);
+  --button-hover:#062554;
+  --blue:#0d47a1;
+  --light-blue:#1368ed;
+  --purple:#3f2edc;
+  --light-purple:#5536ff;
+  --lightest-purple:#7c81ff;
+  --dark-purple:#525f7f;
+
+  --button:rgba(82, 95, 127, 0.4);
+
+  --transition-cubic-bezier: all 0.3s cubic-bezier(0.31, 0.89, 0.56, 1.01);
+}

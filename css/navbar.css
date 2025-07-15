@@ -1,0 +1,68 @@
+@import '_config.css';
+@import 'style.css';
+
+.navbar-left{
+    display: flex;
+    flex-direction: row;
+    gap:var(--space-s);
+    height: 100%;
+}
+
+.chat-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: var(--transition-cubic-bezier);
+}
+
+.chat-button .material-symbols-outlined {
+    color: var(--black);
+}
+
+.chat-button:hover, .login-btn:hover{
+    background: var(--button-hover);
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    color: var(--white);
+    border: none;
+}
+
+.chat-button:hover .material-symbols-outlined {
+    color: var(--white);
+}
+
+.user{
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap:var(--space-s);
+    position: relative; 
+}
+
+.login-btn{
+    background:var(--button);
+    padding: var(--space-s);
+    border-radius: var(--radius-l);
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-button);
+    color: var(--black);
+    transition: var(--transition-cubic-bezier);
+}
+
+.img-profile{
+    height: 40px;
+    width: 40px;
+    border-radius: 100%;
+    aspect-ratio: 1 / 1;
+
+    object-fit: cover;
+}
+
+.dropdrown{
+    display: flex;
+    gap: var(--space-s)
+}

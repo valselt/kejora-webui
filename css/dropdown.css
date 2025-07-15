@@ -1,0 +1,115 @@
+@import '_config.css';
+@import 'style.css';
+
+
+.custom-dropdown-wrapper {
+    position: relative;
+    display: inline-block;
+    font-family: "Host Grotesk", sans-serif;
+}
+
+/* Tombol utama yang terlihat */
+.custom-dropdown-button {
+    background-color: var(--button);
+    padding: var(--space-xs);
+
+    outline: none;
+    box-shadow: none;
+    border: none;
+
+    border-radius: var(--radius-l);
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 300px;
+}
+
+#server-selected.custom-dropdown-button{
+    width: 200px;
+}
+
+.selected-item-content {
+    display: flex;         
+    align-items: center;   
+    gap:var(--space-xs);
+    width: 100%;          
+}
+
+/* Panel yang berisi pilihan-pilihan */
+.custom-dropdown-panel {
+    display: none; /* Sembunyikan secara default */
+    position: absolute;
+    background-color: var(--white);
+    width: 100%;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: var(--radius-l);
+    overflow: hidden;
+}
+
+/* Setiap item di dalam panel */
+.custom-dropdown-item {
+    color: var(--color-black);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    
+}
+
+.custom-dropdown-item:hover {
+    background-color: var(--button-hover);
+    color: var(--white);
+}
+
+.ai-dropdown-things{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap:var(--gap-children-step-2-5);
+}
+
+.title-ai{
+    display: flex;
+    align-items: center;
+
+    gap:var(--space-xs);
+}
+
+.title-ai img{
+    height: 20px;
+    width: auto;
+
+    border-radius: 50%;
+}
+
+.version-text{
+    background-color: var(--color-primary);
+    color:var(--color-white);
+    display: flex;
+    padding:var(--padding-version);
+    font-family: "Fira Mono", monospace;
+    font-weight: 400;
+    font-size: 0.8rem;
+
+    align-items: center;
+    justify-content: center;
+
+    border-radius: var(--border-radius-step-5);
+}
+
+.is-disabled {
+    opacity: 0.6; /* Membuatnya terlihat buram */
+    cursor: not-allowed; /* Mengubah kursor mouse */
+    pointer-events: none; /* Menonaktifkan semua event klik */
+}
+
+/* Kelas untuk menampilkan panel */
+.custom-dropdown-panel.show {
+    display: block;
+}
