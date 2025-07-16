@@ -1,0 +1,138 @@
+@import '../css/_config.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Host Grotesk", sans-serif;
+  font-optical-sizing: auto;
+}
+
+
+button {
+    background:var(--button);
+    padding: var(--space-s);
+    border-radius: var(--radius-l);
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-button);
+
+    color: var(--black);
+
+    transition:var(--transition-cubic-bezier);
+    
+}
+
+.button {
+    background:var(--button);
+    padding: var(--space-s);
+    border-radius: var(--radius-l);
+    border: none;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+    font-size: var(--font-button);
+    text-decoration: none;
+    color: var(--black);
+
+    transition:var(--transition-cubic-bezier);
+}
+
+button:hover, .button:hover{
+    background: var(--blue);
+    color: var(--white);
+}
+
+
+
+/* CLASS */
+.container{
+    height: 100vh;
+    width: 100vw;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: linear-gradient(to bottom, #ebecf2, #adb7d8);
+
+}
+
+.box{
+    height: clamp(280px, 90vw, 500px);
+    width: clamp(280px, 90vw, 600px);
+    padding: var(--space-xl);
+
+    background-color: var(--white);
+    border-radius: var(--radius-xl);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    
+
+}
+
+.top{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: var(--space-xl);
+}
+
+.logo{
+    height: 6rem;
+    width: 6rem;
+}
+
+.bottom{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: var(--space-l);    
+}
+
+.otp-box{
+    display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: var(--space-m); 
+}
+
+.otp-input-container {
+    display: flex;
+    justify-content: space-between; /* Untuk memberi jarak antar kotak */
+    gap: var(--space-xs); /* Mengurangi gap agar lebih rapat jika dibutuhkan */
+    width: 100%;
+}
+
+.otp-input {
+    width: 45px; /* Sesuaikan lebar kotak */
+    height: 45px; /* Sesuaikan tinggi kotak */
+    text-align: center;
+    font-size: 24px; /* Ukuran font lebih besar untuk digit */
+    border: 1px solid var(--gray);
+    border-radius: var(--space-s);
+    background-color: transparent;
+    transition: var(--transition-cubic-bezier);
+    box-sizing: border-box;
+    flex-grow: 1;
+}
+
+.otp-input:focus {
+    background-color: var(--light-blue);
+    color: var(--white);
+    outline: none;
+    border-color: var(--blue);
+    box-shadow: 0 1px 1px rgba(26, 115, 232, .075), 0 0 8px rgba(26, 115, 232, .2);
+}
+
+
+.wrapper-button{
+    display: flex;
+    justify-content: flex-end;
+    gap:var(--space-s)
+}

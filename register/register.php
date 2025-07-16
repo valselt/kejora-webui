@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $phonenumber = trim($_POST['phonenumber']);
     $password = $_POST['password'];
     $password_check = $_POST['password-check'];
-    $profile_picture_path = NULL; 
+    $profile_picture_path = 'uploads/profile_pictures/default.png';
 
     // 2. Validasi di Sisi Server
     if (empty($fullname) || empty($username) || empty($email) || empty($phonenumber) || empty($password) || empty($password_check)) {
@@ -85,9 +85,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mysqli_stmt_bind_param($stmt_insert, "ssssss", $fullname, $username, $email, $phonenumber, $hashed_password, $profile_picture_path);
 
     if (mysqli_stmt_execute($stmt_insert)) {
-        $_SESSION['success'] = "Registrasi berhasil! Silakan masuk.";
-        header("Location: ../login/");
-        exit;
+        // Jika insert berhasil, jangan langsung ke login. Mulai proses OTP.
+        $user_id = mysqli_insert_id($koneksi); // Ambil ID user yang baru dibuat
+        
+        // Panggil fungsi untuk mengirim OTP (akan kita buat di file terpisah)
+        require_once '../lib/otp_handler.php'; // Kita akan buat file ini
+        
+        try {
+            // Kirim OTP dan simpan user_id ke session untuk halaman verifikasi
+            send_otp($user_id, $email, $fullname);
+            $_SESSION['otp_user_id'] = $user_id; // Simpan user ID untuk verifikasi
+            
+            // Arahkan ke halaman input OTP
+            header("Location: ../otp/");
+            exit;
+
+        } catch (Exception $e) {
+            // Jika email gagal dikirim, beri pesan error
+            $_SESSION['error'] = "Registrasi berhasil, tetapi gagal mengirim email OTP. Silakan coba lagi nanti. Error: " . $e->getMessage();
+            header("Location: index.php");
+            exit;
+        }
+
     } else {
         $_SESSION['error'] = "Registrasi gagal, terjadi kesalahan pada server.";
         header("Location: index.php");

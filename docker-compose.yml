@@ -1,4 +1,4 @@
-version: '3.8'
+version: '3.3'
 
 services:
   apache-php:
@@ -7,5 +7,5 @@ services:
     volumes:
       - /DATA/AppData/apache:/var/www/html
     ports:
-      - "8080:80"
+      - "7777:80"
     restart: unless-stopped

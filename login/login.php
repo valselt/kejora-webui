@@ -1,87 +1,67 @@
 <?php
-// login.php
-
-session_start(); // Mulai session untuk menyimpan status login dan pesan
-
-// Sertakan file koneksi database
-// Path relatif dari login/ ke root proyek (ai-website/koneksi.php)
+session_start();
 require_once '../koneksi.php';
+require_once '../lib/device_handler.php'; // Panggil pustaka untuk urusan perangkat
+require_once '../lib/otp_handler.php';    // Panggil pustaka untuk urusan OTP
 
 // Memastikan request datang dari method POST
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Ambil data dari form dan bersihkan (trim untuk menghilangkan spasi di awal/akhir)
-    $username = trim($_POST['username']);
+    $identifier = trim($_POST['username']); // Bisa username atau email
     $password = $_POST['password'];
 
-    // Validasi input kosong di sisi server (meskipun ada validasi JS, ini penting)
-    if (empty($username) || empty($password)) {
-        $_SESSION['login_error'] = "Username dan password harus diisi!"; // Simpan pesan error di session
-        header("Location: index.php"); // Kembali ke halaman login (index.php di folder login)
-        exit;
-    }
-
-    // Gunakan prepared statement untuk mencegah SQL Injection.
-    // Query mencari user berdasarkan username ATAU email.
-    $sql = "SELECT id, username, password, fullname, profile_picture FROM users WHERE username = ? OR email = ?";
-    $stmt = mysqli_prepare($koneksi, $sql);
-
-    // Periksa jika prepared statement gagal (misalnya karena query salah atau koneksi DB bermasalah)
-    if ($stmt === false) {
-        // Untuk debugging, bisa tambahkan: . mysqli_error($koneksi)
-        $_SESSION['login_error'] = "Terjadi kesalahan server saat login. Silakan coba lagi.";
+    if (empty($identifier) || empty($password)) {
+        $_SESSION['login_error'] = "Username dan password harus diisi!";
         header("Location: index.php");
         exit;
     }
 
-    // Bind parameter ke prepared statement. "ss" berarti dua parameter string.
-    // Kita bind $username dua kali agar bisa mencari di kolom username atau email.
-    mysqli_stmt_bind_param($stmt, "ss", $username, $username);
-
-    // Jalankan query
+    // 1. Validasi Password Pengguna
+    $sql = "SELECT id, fullname, email, password, is_verified FROM users WHERE username = ? OR email = ?";
+    $stmt = mysqli_prepare($koneksi, $sql);
+    mysqli_stmt_bind_param($stmt, "ss", $identifier, $identifier);
     mysqli_stmt_execute($stmt);
-
-    // Dapatkan hasil query
     $result = mysqli_stmt_get_result($stmt);
+    $user = mysqli_fetch_assoc($result);
+    mysqli_stmt_close($stmt);
 
-    // Periksa apakah ada satu baris hasil (user ditemukan)
-    if (mysqli_num_rows($result) === 1) {
-        $user = mysqli_fetch_assoc($result); // Ambil data user sebagai array asosiatif
+    if ($user && password_verify($password, $user['password'])) {
+        // ---- PASSWORD BENAR, MASUK KE LOGIKA BARU ----
 
-        // Verifikasi password yang di-hash.
-        // password_verify() membandingkan plain-text password dengan hash yang tersimpan.
-        if (password_verify($password, $user['password'])) {
-            // Login berhasil: Simpan data user penting ke session
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
-            $_SESSION['fullname'] = $user['fullname'];
-            // Simpan path foto profil ke session (bisa NULL atau path default/custom)
-            $_SESSION['profile_picture'] = $user['profile_picture']; 
-            
-            $_SESSION['login_success'] = "Selamat datang, " . $user['fullname'] . "!"; // Pesan sukses
-
-            // Redirect ke halaman utama/dashboard setelah login.
-            // Sesuaikan path ini dengan lokasi landing page utama Anda (misal: index.php di root).
-            header("Location: ../"); 
-            exit;
-        } else {
-            // Password salah
-            $_SESSION['login_error'] = "Username atau password salah!";
-            header("Location: index.php"); // Kembali ke halaman login
+        // 2. Cek apakah akun sudah diverifikasi saat registrasi
+        if ($user['is_verified'] == 0) {
+            // Jika belum, paksa pengguna untuk verifikasi OTP registrasi terlebih dahulu
+            $_SESSION['otp_user_id'] = $user['id'];
+            send_otp($user['id'], $user['email'], $user['fullname']);
+            header("Location: ../otp/");
             exit;
         }
+
+        // 3. Validasi Perangkat (Cookie)
+        $user_id_from_cookie = validate_device_cookie(); // Fungsi dari device_handler.php
+        
+        if ($user_id_from_cookie === $user['id']) {
+            // Perangkat Dikenali, Aktif, dan Terpercaya! Langsung Login.
+            create_user_session($user['id']); // Fungsi dari device_handler.php
+            header("Location: ../index.php");
+            exit;
+        } else {
+            // Perangkat Baru, Tidak Dikenali, atau Sudah Inaktif > 15 hari. Minta OTP.
+            $_SESSION['otp_user_id'] = $user['id'];
+            $_SESSION['otp_context'] = 'device_verification'; // Tandai ini untuk verifikasi perangkat
+            send_otp($user['id'], $user['email'], $user['fullname']); // Fungsi dari otp_handler.php
+            header("Location: ../otp/");
+            exit;
+        }
+        // ---- AKHIR DARI LOGIKA BARU ----
+
     } else {
-        // Username tidak ditemukan (atau lebih dari satu, yang tidak seharusnya terjadi jika username/email unique)
+        // Jika username tidak ditemukan atau password salah
         $_SESSION['login_error'] = "Username atau password salah!";
-        header("Location: index.php"); // Kembali ke halaman login
+        header("Location: index.php");
         exit;
     }
-
-    // Tutup statement dan koneksi database
-    mysqli_stmt_close($stmt);
-    mysqli_close($koneksi);
-
 } else {
-    // Jika file ini diakses langsung tanpa method POST, arahkan kembali ke halaman login.
+    // Jika file diakses langsung tanpa method POST
     header("Location: index.php");
     exit;
 }
