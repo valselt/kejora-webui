@@ -23,12 +23,13 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    width: 300px;
+    width: clamp(120px, 25vw, 300px);
+    height: 100%;
     color: var(--black); /* Pastikan warna teks default tombol adalah hitam */
 }
 
 #server-selected.custom-dropdown-button{
-    width: 200px;
+    width: clamp(80px, 20vw, 200px);
 }
 
 .selected-item-content {
@@ -136,12 +137,15 @@
     /* Hapus 'color: var(--gray-darker);' dari sini */
 }
 
-/* === PENAMBAHAN KODE DI SINI === */
-/* Aturan ini menargetkan teks 'Model' secara spesifik
-   di dalam tombol 'Model' ketika memiliki kelas 'no-server-selected' */
+
 .custom-dropdown-button.no-server-selected .selected-item-content span {
-    color: var(--black); /* Memaksa warna teks menjadi hitam */
-    /* Opsional: Anda bisa juga mengatur font-weight atau property lain di sini
-       jika ingin teks "Model" lebih menonjol */
+    color: var(--red); 
 }
-/* === AKHIR PENAMBAHAN KODE === */
+
+@media (max-width: 946px) {
+    .title-ai img {
+        display: none;
+    }
+}
+
+

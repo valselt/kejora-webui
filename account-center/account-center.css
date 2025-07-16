@@ -172,6 +172,15 @@
 }
 .title-api{
     width: 20%;
+    display: flex;
+    align-items: center;
+    gap: VAR(--space-xs);
+    text-decoration: none;
+    color: var(--black);
+}
+
+.title-api:hover{
+    color: var(--blue);
 }
 .api{
     display: flex;

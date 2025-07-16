@@ -156,14 +156,14 @@ if (isset($_SESSION['api_message'])) {
                     <p class="acc-title">API</p>
                     <div class="acc-biodata" id="biodata_api">
                         <div class="acc-info api" id="class-groq-api">
-                            <p class="title-api">Groq API</p>
+                            <a class="title-api" href="https://console.groq.com/keys" target="_blank" rel="noopener noreferrer">Groq API <span class="material-symbols-outlined">open_in_new</span></a>
                             <input type="password" id="groq_api_input" class="input-api" placeholder="Masukkan Groq API Key" value="<?php echo $groq_api_value; ?>">
                             <button class="saveapi" id="groq_api_save">
                                 <span class="material-symbols-outlined">save</span>
                             </button>
                         </div>
                         <div class="acc-info api" id="class-google-ai-studio-api">
-                            <p class="title-api">Google AI Studio API</p>
+                            <a class="title-api"href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener noreferrer">Google AI Studio API <span class="material-symbols-outlined">open_in_new</span></a>
                             <input type="password" id="google_api_input" class="input-api" placeholder="Masukkan Google AI Studio API Key" value="<?php echo $google_api_value; ?>">
                             <button class="saveapi" id="google_api_save">
                                 <span class="material-symbols-outlined">save</span>

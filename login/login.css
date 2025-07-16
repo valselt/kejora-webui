@@ -61,8 +61,8 @@ button:hover, .button:hover{
 }
 
 .box{
-    height: 50%;
-    width: 50%;
+    height: clamp(280px, 90vw, 600px);
+    width: clamp(280px, 90vw, 600px);
     padding: var(--space-xl);
 
     background-color: var(--white);
@@ -70,6 +70,7 @@ button:hover, .button:hover{
 
     display: flex;
     flex-direction: column;
+    justify-content: center;
     
 
 }

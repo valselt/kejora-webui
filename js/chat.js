@@ -18,11 +18,22 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch('chat_api.php?action=get_conversations');
             const data = await response.json();
-            if (data.status === 'success') {
+            if (data.status === 'success' && data.conversations) {
                 chatListContainer.innerHTML = ''; // Kosongkan placeholder
+                
+                // --- PERUBAHAN DI SINI ---
+                // Loop melalui data dan GUNAKAN APPEND untuk menjaga urutan
                 data.conversations.forEach(conv => {
-                    addConversationToList(conv.id, conv.title, false); // false = jangan set aktif
+                    const chatItem = document.createElement('p');
+                    chatItem.className = 'bar-chats';
+                    chatItem.textContent = conv.title;
+                    chatItem.dataset.conversationId = conv.id;
+                    chatItem.title = conv.title;
+                    
+                    // Gunakan .append() agar urutan dari server (terbaru di atas) tetap terjaga
+                    chatListContainer.append(chatItem);
                 });
+                // --- AKHIR PERUBAHAN ---
             }
         } catch (error) {
             console.error('Gagal memuat percakapan:', error);
@@ -41,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
         try {
             const response = await fetch(`chat_api.php?action=get_messages&conversation_id=${convId}`);
             const data = await response.json();
-            if (data.status === 'success') {
+            if (data.status === 'success' && data.messages) {
                 data.messages.forEach(msg => {
                     appendMessage(msg.sender, msg.content);
                 });
@@ -58,7 +69,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const promptText = promptInput.value.trim();
 
         if (!promptText) return;
-        if (!selectedServer || !selectedAiModel) {
+        if (typeof selectedServer === 'undefined' || typeof selectedAiModel === 'undefined' || !selectedServer || !selectedAiModel) {
             alert('Silakan pilih Server dan Model AI terlebih dahulu.');
             return;
         }
@@ -86,11 +97,11 @@ document.addEventListener('DOMContentLoaded', function() {
             if (result.status === 'success') {
                 appendMessage('ai', result.message);
                 
-                // Jika ini percakapan baru, tambahkan ke list
                 if (result.title) {
-                    addConversationToList(result.conversation_id, result.title, true); // true = set aktif
+                    // Jika ini percakapan baru, tambahkan ke list di paling atas
+                    addConversationToList(result.conversation_id, result.title, true);
                 }
-                currentConversationId = result.conversation_id; // Selalu update ID
+                currentConversationId = result.conversation_id;
             } else {
                 appendMessage('ai', result.message, true);
             }
@@ -112,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateActiveChatInList(null);
     }
 
-    /** Menambahkan item percakapan ke sidebar */
+    /** Menambahkan item percakapan BARU ke sidebar */
     function addConversationToList(id, title, setActive) {
         const chatItem = document.createElement('p');
         chatItem.className = 'bar-chats';
@@ -120,7 +131,8 @@ document.addEventListener('DOMContentLoaded', function() {
         chatItem.dataset.conversationId = id;
         chatItem.title = title;
         
-        chatListContainer.prepend(chatItem); // Tambahkan ke paling atas
+        // Gunakan prepend() di sini agar chat BARU selalu muncul di paling atas
+        chatListContainer.prepend(chatItem); 
         if (setActive) {
             updateActiveChatInList(id);
         }
@@ -156,6 +168,7 @@ document.addEventListener('DOMContentLoaded', function() {
     /** Menambahkan bubble pesan ke dalam kontainer chat */
     function appendMessage(sender, text, isError = false) {
         let messageHtml = '';
+        // Sanitasi dasar untuk mencegah injeksi HTML sederhana
         const sanitizedText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
         if (sender === 'user') {
             messageHtml = `<div class="prompt-box-input"><p>${sanitizedText}</p></div>`;
@@ -169,13 +182,10 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // --- EVENT LISTENERS ---
     
-    // Kirim chat
     chatForm.addEventListener('submit', handleChatSubmit);
     
-    // Tombol New Chat
     newChatButton.addEventListener('click', resetChatView);
     
-    // Klik pada list chat (Event Delegation)
     chatListContainer.addEventListener('click', function(e) {
         if (e.target && e.target.classList.contains('bar-chats')) {
             const convId = e.target.dataset.conversationId;
@@ -185,7 +195,6 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 
-    // Auto-resize textarea
     promptInput.addEventListener('input', () => {
         promptInput.style.height = 'auto';
         promptInput.style.height = `${promptInput.scrollHeight}px`;

@@ -13,6 +13,9 @@
     align-items: center;
     justify-content: center;
 
+    
+    aspect-ratio: 1 / 1;
+
     transition: var(--transition-cubic-bezier);
 }
 
@@ -65,4 +68,14 @@
 .dropdrown{
     display: flex;
     gap: var(--space-s)
+}
+
+.logo{
+    display: flex;
+}
+
+@media (max-width: 600px) {
+    .logo {
+        display: none;
+    }
 }
