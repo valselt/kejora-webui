@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
             // Redirect ke halaman utama/dashboard setelah login.
             // Sesuaikan path ini dengan lokasi landing page utama Anda (misal: index.php di root).
-            header("Location: ../index.php"); 
+            header("Location: ../"); 
             exit;
         } else {
             // Password salah

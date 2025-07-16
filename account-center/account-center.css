@@ -1,4 +1,4 @@
-@import '_config.css';
+@import '../css/_config.css';
 
 .account-center{
     background-image: url('../images/bg-purple.jpg');
@@ -185,7 +185,7 @@
   padding: 15px 12px;
   border: 1px solid var(--gray); 
   border-radius: var(--space-s);
-  font-size: 16px;
+  font-size: var(--font-small-sans);
   box-sizing: border-box;
   transition:var(--transition-cubic-bezier);
 }
@@ -233,3 +233,231 @@
     background-color: var(--dark-red);
     color: var(--white);
 }
+
+.crafted-info{
+    color: var(--white);
+    font-size: var(--font-small);
+    margin-top:3rem;
+    width: 100%;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+/* Teknis */
+
+.alert {
+    padding: var(--space-s);
+    border-radius: var(--radius-m);
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: var(--space-m); /* Jarak antara alert dan box-styling pertama */
+}
+
+.alert.success {
+    background-color: var(--green);
+    color: var(--white);
+}
+
+.alert.error {
+    background-color: var(--red);
+    color: var(--white);
+}
+
+/* Penyesuaian untuk input API dan tombol save */
+.acc-info.api .input-api {
+    flex-grow: 1; /* Agar input mengisi ruang yang tersedia */
+    margin-right: var(--space-xs); /* Memberi jarak antara input dan tombol save */
+}
+
+.acc-info.api .saveapi {
+    flex-shrink: 0; /* Mencegah tombol menyusut */
+    padding: var(--space-xs) var(--space-s); /* Padding kecil untuk tombol save */
+    font-size: var(--font-button); /* Pastikan font size-nya tombol */
+    border-radius: var(--radius-s); /* Radius kecil */
+    background-color: var(--button); /* Warna default */
+    color: var(--black);
+    transition: var(--transition-cubic-bezier);
+}
+
+.acc-info.api .saveapi:hover {
+    background-color: var(--blue); /* Warna hover */
+    color: var(--white);
+}
+
+/* Mekanisme tombol */
+
+/* === Global Modal Overlay Styling === */
+.hover-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6); /* Lebih gelap untuk blur yang lebih baik */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000; /* Pastikan di atas semua konten lain */
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.hover-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* === Blur Effect for main-acc === */
+.main-acc.blurred {
+    filter: blur(5px); /* Efek blur saat modal aktif */
+    pointer-events: none; /* Mencegah interaksi saat blur */
+    transition: filter 0.3s ease;
+}
+
+
+/* === Hover Box Modal Basic Styling (from your previous input) === */
+.hover-box{
+    background-color: var(--white);
+    padding: var(--space-l);
+    border-radius: var(--radius-xl); 
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    z-index: 3001; 
+
+    display: flex;
+    flex-direction: column;
+    gap:var(--space-m);
+
+    width: 50vh; /* Ukuran yang Anda berikan, sesuaikan jika perlu */
+    height: auto; 
+    max-height: 90vh; 
+    overflow-y: auto; 
+
+    transform: translateY(-20px);
+    transition: transform 0.3s ease;
+    position: relative; /* Untuk posisi tombol close di dalamnya */
+}
+
+.hover-overlay.active .hover-box {
+    transform: translateY(0);
+}
+
+.hover-title{
+    font-size: var(--font-big);
+    font-weight: bold;
+    margin-bottom: var(--space-s);
+}
+
+.hover-input{
+    display: flex;
+    flex-direction: column;
+    gap:var(--space-xs);
+    width: 100%;
+}
+
+/* Gaya untuk input di dalam hover box (menggunakan class input-edit) */
+.input-edit {
+  background-color: transparent;
+  width: 100%;
+  padding: 15px 12px;
+  border: 1px solid var(--gray); 
+  border-radius: var(--space-s);
+  font-size: var(--font-small-sans);
+  box-sizing: border-box;
+  transition:var(--transition-cubic-bezier);
+}
+
+.input-edit:focus {
+  background-color: var(--light-blue);
+  color: var(--white);
+  outline: none;
+  border-color: var(--blue);
+  box-shadow: 0 1px 1px rgba(26, 115, 232, .075), 0 0 8px rgba(26, 115, 232, .2);
+}
+
+.input-edit::placeholder {
+  font-family: "Host Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  color: var(--black); 
+  font-size: 14px; 
+  font-weight: normal;
+}
+
+.input-edit:focus::placeholder {
+  font-family: "Host Grotesk", sans-serif;
+  font-optical-sizing: auto;
+  color: var(--white); 
+  font-size: 14px; 
+  font-weight: normal;
+}
+
+
+.hover-button, .hover-button-close{
+    background:var(--button);
+    padding: var(--space-s);
+    border-radius: var(--radius-l);
+    border: none;
+    cursor: pointer;
+    font-size: var(--font-button);
+    color: var(--black);
+    
+    transition: var(--transition-cubic-bezier);
+}
+
+.hover-button{
+    width: 100%; 
+    margin-top: var(--space-s);
+}
+
+.hover-button:hover{
+    background-color: var(--button-hover);
+    color: var(--white);
+}
+
+.hover-button-close{
+    position: absolute; 
+    top: var(--space-m);
+    right: var(--space-m);
+    background-color: transparent; 
+    color: var(--gray-darker); 
+    font-size: var(--font-big); 
+    padding: var(--space-xs); 
+    border-radius: var(--radius-full); 
+    width: auto; 
+}
+
+.hover-button-close:hover{
+    background-color: var(--red);
+    color: var(--white);
+}
+
+.hover-button-red{
+    background-color: var(--red);
+    color: var(--white);
+}
+.hover-button-red:hover {
+    background-color: var(--dark-red, #8b0000); 
+    color: var(--white);
+}
+
+.drop-zone {
+    border: 2px dashed var(--gray);
+    border-radius: var(--radius-l);
+    padding: var(--space-xl);
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.drop-zone:hover {
+    border-color: var(--blue);
+}
+
+.img-container {
+    max-width: 100%;
+}
+
+

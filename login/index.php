@@ -1,3 +1,19 @@
+<?php
+// 1. Mulai session di paling atas, sebelum ada output apa pun.
+session_start();
+
+// 2. Siapkan variabel untuk pesan error atau sukses.
+$message_to_display = '';
+if (isset($_SESSION['login_error'])) {
+    $message_to_display = '<p style="color: red;">' . $_SESSION['login_error'] . '</p>';
+    // Hapus session setelah digunakan agar tidak muncul lagi saat halaman di-refresh
+    unset($_SESSION['login_error']);
+}
+if (isset($_SESSION['login_success'])) {
+    $message_to_display = '<p style="color: green;">' . $_SESSION['login_success'] . '</p>';
+    unset($_SESSION['login_success']);
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +22,7 @@
     <title>Login Kejora</title>
     <link rel="icon" type="image/png" href="../images/kejora-logo.png">
     <link rel="stylesheet" href="login.css">
+    
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Text:ital@0;1&family=Fira+Mono:wght@400;500;700&family=Host+Grotesk:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
@@ -23,21 +40,14 @@
                     <input type="password" id="password" name="password" class="input-lr" placeholder="Password" required>
                 </form>
                 <div class="wrapper-button">
-                    <a href="../register/index.php" class="button">Buat Akun</a>
+                    <a href="../register/" class="button">Buat Akun</a>
                     <button type="submit" form="loginForm">Selanjutnya</button>
                 </div>
 
                 <div id="message-area" style="margin-top: var(--space-m); text-align: center;">
                     <?php
-                        session_start();
-                        if (isset($_SESSION['login_error'])) {
-                            echo '<p style="color: red;">' . $_SESSION['login_error'] . '</p>';
-                            unset($_SESSION['login_error']);
-                        }
-                        if (isset($_SESSION['login_success'])) {
-                            echo '<p style="color: green;">' . $_SESSION['login_success'] . '</p>';
-                            unset($_SESSION['login_success']);
-                        }
+                        // 3. Cukup tampilkan variabel yang sudah disiapkan di atas.
+                        echo $message_to_display;
                     ?>
                 </div>
 

@@ -1,3 +1,16 @@
+<?php
+session_start();
+
+$message_to_display = '';
+if (isset($_SESSION['success'])) {
+    $message_to_display = '<p style="color: green;">' . htmlspecialchars($_SESSION['success']) . '</p>';
+    unset($_SESSION['success']); 
+}
+if (isset($_SESSION['error'])) {
+    $message_to_display = '<p style="color: red;">' . htmlspecialchars($_SESSION['error']) . '</p>';
+    unset($_SESSION['error']); 
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,24 +40,14 @@
                     <input type="password" id="password-check" name="password-check" class="input-lr" placeholder="Ulangi Password" required>
                 </form>
                 <div class="wrapper-button">
-                    <a href="../login/index.html" class="button">Masuk</a>
+                    <a href="../login/" class="button">Masuk</a>
                     <button type="submit" form="registerForm">Selanjutnya</button>
                 </div>
                 <div id="message-area" style="margin-top: var(--space-m); text-align: center;">
                     <?php
-                        // Perlu memulai session di sini juga untuk mengakses $_SESSION
-                        session_start();
-                        if (isset($_SESSION['success'])) {
-                            echo '<p style="color: green;">' . $_SESSION['success'] . '</p>';
-                            unset($_SESSION['success']); // Hapus pesan setelah ditampilkan
-                        }
-                        if (isset($_SESSION['error'])) {
-                            echo '<p style="color: red;">' . $_SESSION['error'] . '</p>';
-                            unset($_SESSION['error']); // Hapus pesan setelah ditampilkan
-                        }
+                        echo $message_to_display;
                     ?>
                 </div>
-
             </div>
         </div>
     </div>

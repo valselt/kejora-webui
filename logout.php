@@ -17,6 +17,6 @@ if (ini_get("session.use_cookies")) {
 session_destroy();
 
 // Redirect ke halaman login atau halaman utama
-header("Location: login/index.php"); // Atau ../index.php jika ingin ke landing page utama
+header("Location: login/"); // Atau ../index.php jika ingin ke landing page utama
 exit;
 ?>

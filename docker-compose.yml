@@ -1,0 +1,11 @@
+version: '3.8'
+
+services:
+  apache-php:
+    build: .
+    container_name: apache-php
+    volumes:
+      - /DATA/AppData/apache:/var/www/html
+    ports:
+      - "8080:80"
+    restart: unless-stopped

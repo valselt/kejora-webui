@@ -52,6 +52,7 @@
   --purple:#3f2edc;
   --light-purple:#5536ff;
   --lightest-purple:#7c81ff;
+  --purple-hover-transparent: rgba(124, 129, 255, 0.3);
   --dark-purple:#525f7f;
 
   --button:rgba(82, 95, 127, 0.4);

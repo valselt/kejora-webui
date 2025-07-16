@@ -24,6 +24,7 @@
     align-items: center;
     justify-content: space-between;
     width: 300px;
+    color: var(--black); /* Pastikan warna teks default tombol adalah hitam */
 }
 
 #server-selected.custom-dropdown-button{
@@ -34,7 +35,7 @@
     display: flex;         
     align-items: center;   
     gap:var(--space-xs);
-    width: 100%;          
+    width: 100%;           
 }
 
 /* Panel yang berisi pilihan-pilihan */
@@ -51,14 +52,12 @@
 
 /* Setiap item di dalam panel */
 .custom-dropdown-item {
-    color: var(--color-black);
+    color: var(--black); /* Pastikan warna teks default item adalah hitam */
     padding: 12px 16px;
     text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: space-between;
-
-    
 }
 
 .custom-dropdown-item:hover {
@@ -89,10 +88,10 @@
 }
 
 .version-text{
-    background-color: var(--color-primary);
-    color:var(--color-white);
+    background-color: var(--color-primary); /* Pastikan ini didefinisikan di _config.css */
+    color:var(--white);
     display: flex;
-    padding:var(--padding-version);
+    padding:var(--padding-version); /* Pastikan ini didefinisikan di _config.css */
     font-family: "Fira Mono", monospace;
     font-weight: 400;
     font-size: 0.8rem;
@@ -100,16 +99,49 @@
     align-items: center;
     justify-content: center;
 
-    border-radius: var(--border-radius-step-5);
-}
-
-.is-disabled {
-    opacity: 0.6; /* Membuatnya terlihat buram */
-    cursor: not-allowed; /* Mengubah kursor mouse */
-    pointer-events: none; /* Menonaktifkan semua event klik */
+    border-radius: var(--border-radius-step-5); /* Pastikan ini didefinisikan di _config.css */
 }
 
 /* Kelas untuk menampilkan panel */
 .custom-dropdown-panel.show {
     display: block;
 }
+
+
+/* === Gaya untuk kondisi disable/non-selected === */
+
+/* Gaya untuk item dropdown yang dinonaktifkan (Groq/Google API belum dikonfigurasi) */
+.custom-dropdown-item.is-disabled {
+    opacity: 0.5; 
+    pointer-events: none; 
+    cursor: not-allowed; 
+    background-color: var(--gray-darker); 
+    color: var(--black); /* Pastikan teks tetap hitam agar terbaca */
+}
+
+/* Gaya untuk tombol utama dropdown yang dinonaktifkan sepenuhnya (tidak ada API yang dikonfigurasi) */
+.custom-dropdown-button.is-disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    cursor: not-allowed;
+    background-color: var(--gray);
+    color: var(--black); /* Pastikan teks tetap hitam */
+}
+
+/* Gaya untuk tombol Model yang aktif tapi belum ada server terpilih (yang masalahnya) */
+.custom-dropdown-button.no-server-selected {
+    background-color: var(--button); /* Biarkan background abu-abu seperti sebelumnya */
+    opacity: 0.8; /* Sedikit transparan untuk efek abu-abu */
+    cursor: pointer; /* Tetap bisa diklik */
+    /* Hapus 'color: var(--gray-darker);' dari sini */
+}
+
+/* === PENAMBAHAN KODE DI SINI === */
+/* Aturan ini menargetkan teks 'Model' secara spesifik
+   di dalam tombol 'Model' ketika memiliki kelas 'no-server-selected' */
+.custom-dropdown-button.no-server-selected .selected-item-content span {
+    color: var(--black); /* Memaksa warna teks menjadi hitam */
+    /* Opsional: Anda bisa juga mengatur font-weight atau property lain di sini
+       jika ingin teks "Model" lebih menonjol */
+}
+/* === AKHIR PENAMBAHAN KODE === */

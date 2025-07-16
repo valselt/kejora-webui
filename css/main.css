@@ -63,7 +63,40 @@
     font-weight: 600;
 }
 
+.list-chats{
+    display: flex;
+    flex-direction: column;
+    height: 65vh;
+    width: 100%;
+    /* background-color: aqua; */
+}
 
+.bar-chats{
+    background-color: transparent;
+    color: var(--dark-purple);
+    display: flex;
+    align-items: center;
+    padding: var(--space-s);
+    border-radius: var(--radius-l);
+    font-weight: bold;
+    cursor: pointer;
+
+    white-space: nowrap;    
+    overflow: hidden;          
+    text-overflow: ellipsis;
+
+    transition: var(--transition-cubic-bezier);
+}
+
+.bar-chats:hover {
+    background-color: var(--purple-hover-transparent);
+    color: var(--dark-purple);
+}
+
+.bar-chats.active {
+    background-color: var(--lightest-purple);
+    color: var(--white);
+}
 
 
 .main-chat {
@@ -115,7 +148,6 @@
 
 .chat-opener{
     height: 100%;
-    background-color: aquamarine;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -154,6 +186,7 @@
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
     border-top-right-radius: 0.2rem;
+    padding: var(--space-s);
 
     display: flex;
     width: fit-content;
@@ -228,3 +261,50 @@
 
     
 }
+
+/* --- Aturan Scroll untuk Chat dan List --- */
+.input-output {
+    flex-grow: 1; /* Agar bisa mengisi ruang yang tersedia */
+    overflow-y: auto;
+    max-height: calc(100vh - 10% - 6.5rem); /* Sesuaikan nilai 6.5rem jika tinggi chat-bar berubah */
+    padding-bottom: 1rem;
+}
+
+.list-chats {
+    max-height: 65vh;
+    gap: var(--space-xs);
+    overflow-y: auto;
+}
+
+/* --- Posisi Chat Bar --- */
+.chat-bar {
+    position: sticky;
+    bottom: 0;
+    margin-top: auto; /* Mendorong ke bawah */
+    z-index: 1000;
+}
+
+
+/* --- Animasi Loading pada Tombol Kirim --- */
+@keyframes spin {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.send-btn.spinning .material-symbols-outlined {
+    animation: spin 1.5s linear infinite;
+}
+
+/* --- Gaya untuk Bubble Eror --- */
+.answer-output.error-bubble p {
+    color: var(--red);
+    font-weight: bold;
+}
+
+/* --- Gaya untuk List Percakapan --- */
+
+
